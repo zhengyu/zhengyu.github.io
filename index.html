@@ -324,6 +324,187 @@
 
 
   
+    <article id="post-php_spl_autoload_register" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/20/php_spl_autoload_register/">php函数：__autoload、spl_autoload_register</a>
+    </h1>
+  
+
+        
+        <a href="/2015/11/20/php_spl_autoload_register/" class="archive-article-date">
+  	<time datetime="2015-11-20T08:15:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="函数作用"><a href="#函数作用" class="headerlink" title="函数作用"></a>函数作用</h2><figure class="highlight plain"><figcaption><span>xxx.php```。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">代码演示</div><div class="line">---</div><div class="line"></div><div class="line">C1.php:</div><div class="line"></div><div class="line">```php</div><div class="line">class C1&#123;</div><div class="line">	public function test()&#123;</div><div class="line">		echo &quot;C1 class\n&quot;;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>C2_1.php:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">__autoload</span><span class="params">($class)</span></span>&#123;</div><div class="line">	$file = $class . <span class="string">'.php'</span>;</div><div class="line">	<span class="keyword">if</span> (file_exists($file))&#123;</div><div class="line">		<span class="keyword">require_once</span>($file);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$c = <span class="keyword">new</span> C1();</div></pre></td></tr></table></figure>
+<p>以上代码当运行C2_1.php时，由于找不到class C1，所以会调用<figure class="highlight plain"><figcaption><span>C1的文件。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">C2_2.php:</div><div class="line"></div><div class="line">```php</div><div class="line">function loader($class)&#123;</div><div class="line">	$file = $class . &apos;.php&apos;;</div><div class="line">	if (file_exists($file))&#123;</div><div class="line">		require_once($file);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">spl_autoload_register(&apos;loader&apos;);</div><div class="line"></div><div class="line">$c = new C1();</div></pre></td></tr></table></figure></p>
+<p>当你不想使用<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">除了绑定函数，还可以绑定类静态方法或者类方法</div><div class="line"></div><div class="line">绑定类静态方法：</div><div class="line"></div><div class="line">C2_3.php:</div><div class="line"></div><div class="line">```php</div><div class="line">class Loader&#123;</div><div class="line">	public function __construct()&#123;</div><div class="line">		spl_autoload_register(array(&apos;Loader&apos;, &apos;autoloader&apos;));</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	public static function autoloader()&#123;</div><div class="line">		$file = $class . &apos;.php&apos;;</div><div class="line">		if (file_exists($file))&#123;</div><div class="line">			require_once($file);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$l = new Loader();</div><div class="line"></div><div class="line">$c = new C1();</div></pre></td></tr></table></figure></p>
+<p>绑定类方法:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Loader</span></span>&#123;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;</div><div class="line">		spl_autoload_register(<span class="keyword">array</span>(<span class="keyword">$this</span>, <span class="string">'autoloader'</span>));</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">autoloader</span><span class="params">()</span></span>&#123;</div><div class="line">		$file = $class . <span class="string">'.php'</span>;</div><div class="line">		<span class="keyword">if</span> (file_exists($file))&#123;</div><div class="line">			<span class="keyword">require_once</span>($file);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$l = <span class="keyword">new</span> Loader();</div><div class="line"></div><div class="line">$c = <span class="keyword">new</span> C1();</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">单例模式</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/php/" class="article-tag-list-link color4">php</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/php函数/" class="article-tag-list-link color1">php函数</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/11/20/php_spl_autoload_register/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-javascript_pattern_singleton" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/16/javascript_pattern_singleton/">javascript设计模式：单例模式</a>
+    </h1>
+  
+
+        
+        <a href="/2015/11/16/javascript_pattern_singleton/" class="archive-article-date">
+  	<time datetime="2015-11-16T07:05:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>单例模式主要是为了确保一个类只有一个实例，具体实现方式是判断当前类是否已实例化，如果有则返回保存的对象，如果没有则创建一个新的实例。</p>
+<p>javascript中有多种方法实现，其中一种实现代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//此处通过闭包，将对象保存在Singleton变量中</span></div><div class="line"><span class="keyword">var</span> Singleton = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> instance;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> &#123;</div><div class="line">			<span class="attr">t</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">				<span class="built_in">console</span>.log(<span class="string">'test'</span>);</div><div class="line">			&#125;</div><div class="line">		&#125;;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> &#123;</div><div class="line">		<span class="attr">getInstance</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			<span class="keyword">if</span> (!instance) &#123;</div><div class="line">				<span class="keyword">return</span> init();</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			<span class="keyword">return</span> instance;</div><div class="line">		&#125;</div><div class="line">	&#125;;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line"><span class="comment">//调用方法</span></div><div class="line">Singleton.getInstance().t();</div></pre></td></tr></table></figure>
+<p>单例模式应用场景：</p>
+<ol>
+<li><p>网站的计数器，确保计数同步</p>
+</li>
+<li><p>应用程序日志，确保日志的写入是由一个实例完成，保证日志的完整性</p>
+</li>
+<li><p>数据库连接类，减少用于数据库链接的资源</p>
+</li>
+</ol>
+<p>还有其他的应用，不过不难看出单例模式主要用于两点：操作共享资源、减少需要频繁操作的资源</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">单例模式</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/javascript/" class="article-tag-list-link color1">javascript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/设计模式/" class="article-tag-list-link color5">设计模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2015/11/16/javascript_pattern_singleton/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-git_hook_update" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -711,6 +892,18 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">yii2</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
             
             <div class="clearfix"></div>
