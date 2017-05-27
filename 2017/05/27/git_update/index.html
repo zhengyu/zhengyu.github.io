@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhengyu.github.io">
-  <title>Tag: ubuntu | 日常开发日记</title>
+  <title>centos升级git | 日常开发日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="记录日常工作和学习的过程">
-<meta property="og:type" content="website">
-<meta property="og:title" content="日常开发日记">
-<meta property="og:url" content="http://zhengyu.github.io/tags/ubuntu/index.html">
+  <meta name="description" content="安装需求的类库12345678910sudo yum install perl-ExtUtils-MakeMaker packagesudo yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel asciidoc# 下载libiconvwget http://ftp.gnu.org/pub/gnu/lib">
+<meta name="keywords" content="centos,git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos升级git">
+<meta property="og:url" content="http://zhengyu.github.io/2017/05/27/git_update/index.html">
 <meta property="og:site_name" content="日常开发日记">
-<meta property="og:description" content="记录日常工作和学习的过程">
+<meta property="og:description" content="安装需求的类库12345678910sudo yum install perl-ExtUtils-MakeMaker packagesudo yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel asciidoc# 下载libiconvwget http://ftp.gnu.org/pub/gnu/lib">
+<meta property="og:updated_time" content="2017-05-27T03:30:57.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="日常开发日记">
-<meta name="twitter:description" content="记录日常工作和学习的过程">
+<meta name="twitter:title" content="centos升级git">
+<meta name="twitter:description" content="安装需求的类库12345678910sudo yum install perl-ExtUtils-MakeMaker packagesudo yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel asciidoc# 下载libiconvwget http://ftp.gnu.org/pub/gnu/lib">
   
     <link rel="alternative" href="/atom.xml" title="日常开发日记" type="application/atom+xml">
   
@@ -152,71 +154,172 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-git_update" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/11/12/ubuntu_zh_lang/" class="archive-article-date">
-  	<time datetime="2015-11-12T05:31:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-12</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/12/ubuntu_zh_lang/">ubuntu添加中文支持</a>
+    <h1 class="article-title" itemprop="name">
+      centos升级git
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/05/27/git_update/" class="archive-article-date">
+  	<time datetime="2017-05-27T03:30:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="安装需求的类库"><a href="#安装需求的类库" class="headerlink" title="安装需求的类库"></a>安装需求的类库</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">sudo yum install perl-ExtUtils-MakeMaker package</div><div class="line">sudo yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel asciidoc</div><div class="line"></div><div class="line"><span class="comment"># 下载libiconv</span></div><div class="line">wget http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz</div><div class="line">tar zxvf libiconv-1.15.tar.gz</div><div class="line"><span class="built_in">cd</span> libiconv-1.15</div><div class="line">./configure --prefix=/usr/<span class="built_in">local</span>/libiconv</div><div class="line">sudo make</div><div class="line">sudo make install</div></pre></td></tr></table></figure>
+<h1 id="卸载centos默认的git"><a href="#卸载centos默认的git" class="headerlink" title="卸载centos默认的git"></a>卸载centos默认的git</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum remove git</div></pre></td></tr></table></figure>
+<h1 id="编译安装git"><a href="#编译安装git" class="headerlink" title="编译安装git"></a>编译安装git</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">wget https://www.kernel.org/pub/software/scm/git/git-2.9.4.tar.gz</div><div class="line">tar zxvf git-2.9.4.tar.gz</div><div class="line"><span class="built_in">cd</span> git-2.9.4</div><div class="line">make configure</div><div class="line">./configure --prefix=/usr/<span class="built_in">local</span>/git --with-iconv=/usr/<span class="built_in">local</span>/libiconv</div><div class="line">sudo make</div><div class="line">sudo make install</div><div class="line"></div><div class="line"><span class="comment"># 安装完成后需要给git做一个软连接，不然bash会报找不到命令的错误</span></div><div class="line">sudo ln <span class="_">-s</span> /usr/<span class="built_in">local</span>/git/bin/git /usr/bin</div><div class="line"></div><div class="line"><span class="comment"># 然后打印一下版本号，如果有显示则安装成功了</span></div><div class="line">git --version</div></pre></td></tr></table></figure>
+<h1 id="报错修改"><a href="#报错修改" class="headerlink" title="报错修改"></a>报错修改</h1><ul>
+<li>make 时出现 [perl.mak] Error 2</li>
+<li>解决方法：yum install perl-ExtUtils-MakeMaker package</li>
+</ul>
+<hr>
+<ul>
+<li>git fatal: Unable to find remote helper for ‘https’</li>
+<li>解决方法：安装curl的相关类库：yum install curl-devel，然后重新编译安装git<br>运行configure时添加curl的相关参数–prefix=/usr/include/curl(这个路径可以通过whereis curl得到)</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ubuntu</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">centos,git</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/linux/" class="article-tag-list-link color1">linux</a>
+        			<a href="/categories/linux,git/" class="article-tag-list-link color5">linux,git</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhengyu.github.io/2017/05/27/git_update/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2015/12/28/yii2_captcha/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">yii2使用验证码组件</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+
+  
 
 
           </div>
@@ -239,9 +342,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		root: "/",

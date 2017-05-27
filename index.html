@@ -154,6 +154,87 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-git_update" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/27/git_update/">centos升级git</a>
+    </h1>
+  
+
+        
+        <a href="/2017/05/27/git_update/" class="archive-article-date">
+  	<time datetime="2017-05-27T03:30:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="安装需求的类库"><a href="#安装需求的类库" class="headerlink" title="安装需求的类库"></a>安装需求的类库</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">sudo yum install perl-ExtUtils-MakeMaker package</div><div class="line">sudo yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel asciidoc</div><div class="line"></div><div class="line"><span class="comment"># 下载libiconv</span></div><div class="line">wget http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz</div><div class="line">tar zxvf libiconv-1.15.tar.gz</div><div class="line"><span class="built_in">cd</span> libiconv-1.15</div><div class="line">./configure --prefix=/usr/<span class="built_in">local</span>/libiconv</div><div class="line">sudo make</div><div class="line">sudo make install</div></pre></td></tr></table></figure>
+<h1 id="卸载centos默认的git"><a href="#卸载centos默认的git" class="headerlink" title="卸载centos默认的git"></a>卸载centos默认的git</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum remove git</div></pre></td></tr></table></figure>
+<h1 id="编译安装git"><a href="#编译安装git" class="headerlink" title="编译安装git"></a>编译安装git</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">wget https://www.kernel.org/pub/software/scm/git/git-2.9.4.tar.gz</div><div class="line">tar zxvf git-2.9.4.tar.gz</div><div class="line"><span class="built_in">cd</span> git-2.9.4</div><div class="line">make configure</div><div class="line">./configure --prefix=/usr/<span class="built_in">local</span>/git --with-iconv=/usr/<span class="built_in">local</span>/libiconv</div><div class="line">sudo make</div><div class="line">sudo make install</div><div class="line"></div><div class="line"><span class="comment"># 安装完成后需要给git做一个软连接，不然bash会报找不到命令的错误</span></div><div class="line">sudo ln <span class="_">-s</span> /usr/<span class="built_in">local</span>/git/bin/git /usr/bin</div><div class="line"></div><div class="line"><span class="comment"># 然后打印一下版本号，如果有显示则安装成功了</span></div><div class="line">git --version</div></pre></td></tr></table></figure>
+<h1 id="报错修改"><a href="#报错修改" class="headerlink" title="报错修改"></a>报错修改</h1><ul>
+<li>make 时出现 [perl.mak] Error 2</li>
+<li>解决方法：yum install perl-ExtUtils-MakeMaker package</li>
+</ul>
+<hr>
+<ul>
+<li>git fatal: Unable to find remote helper for ‘https’</li>
+<li>解决方法：安装curl的相关类库：yum install curl-devel，然后重新编译安装git<br>运行configure时添加curl的相关参数–prefix=/usr/include/curl(这个路径可以通过whereis curl得到)</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">centos,git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/linux,git/" class="article-tag-list-link color5">linux,git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/05/27/git_update/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-yii2_captcha" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -771,6 +852,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">yii2</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">centos,git</a>
               </li>
             
             <div class="clearfix"></div>
