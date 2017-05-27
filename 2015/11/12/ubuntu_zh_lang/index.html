@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://zhengyu.github.io">
   <title>ubuntu添加中文支持 | 日常开发日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原本服务器的ubuntu系统只支持因为，由于一直也没有什么时间，所以也就没有管，最近实在是真的需要中文了，所以也就给系统装上了中文。 操作也不困难，具体操作如下：  在命令行中输入：  1sudo apt-get install language-pack-zh-hans language-pack-zh-hans-base 输入管理员密码后，就会自动下载中文的字库。  配置相关环境变量:编辑文件">
-<meta name="keywords" content="ubuntu">
+  <meta name="description" content="ubuntu 14.04 添加中文支持">
+<meta name="keywords" content="linux,ubuntu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ubuntu添加中文支持">
 <meta property="og:url" content="http://zhengyu.github.io/2015/11/12/ubuntu_zh_lang/index.html">
 <meta property="og:site_name" content="日常开发日记">
-<meta property="og:description" content="原本服务器的ubuntu系统只支持因为，由于一直也没有什么时间，所以也就没有管，最近实在是真的需要中文了，所以也就给系统装上了中文。 操作也不困难，具体操作如下：  在命令行中输入：  1sudo apt-get install language-pack-zh-hans language-pack-zh-hans-base 输入管理员密码后，就会自动下载中文的字库。  配置相关环境变量:编辑文件">
+<meta property="og:description" content="ubuntu 14.04 添加中文支持">
 <meta property="og:updated_time" content="2015-11-12T05:31:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu添加中文支持">
-<meta name="twitter:description" content="原本服务器的ubuntu系统只支持因为，由于一直也没有什么时间，所以也就没有管，最近实在是真的需要中文了，所以也就给系统装上了中文。 操作也不困难，具体操作如下：  在命令行中输入：  1sudo apt-get install language-pack-zh-hans language-pack-zh-hans-base 输入管理员密码后，就会自动下载中文的字库。  配置相关环境变量:编辑文件">
+<meta name="twitter:description" content="ubuntu 14.04 添加中文支持">
   
     <link rel="alternative" href="/atom.xml" title="日常开发日记" type="application/atom+xml">
   
@@ -182,9 +182,8 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install language-pack-zh-hans language-pack-zh-hans-base</div></pre></td></tr></table></figure>
 <p>输入管理员密码后，就会自动下载中文的字库。</p>
 <ol>
-<li>配置相关环境变量:<br>编辑文件<code>/etc/environment</code>，添加以下设置：</li>
+<li>配置相关环境变量:<br>编辑文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```shell</div><div class="line">LANG=&quot;zh_CN.UTF-8&quot;</div><div class="line">LANGUAGE=&quot;zh_CN:zh:en_US:en&quot;</div></pre></td></tr></table></figure></li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">LANG="zh_CN.UTF-8"</div><div class="line">LANGUAGE="zh_CN:zh:en_US:en"</div></pre></td></tr></table></figure>
 <p>添加完成后需要加载配置，使用命令<code>sudo dpkg-reconfigure locales</code>，待配置加载完成后既可。</p>
 
       
@@ -219,6 +218,10 @@
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ubuntu</a>
         		</li>
@@ -424,6 +427,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
@@ -432,15 +439,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript,单例模式,设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">服务器</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php,php函数</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ubuntu,apache</a>
+                <a href="javascript:void(0)" class="js-tag color2">apache</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -8,20 +8,17 @@
   <link rel="dns-prefetch" href="http://zhengyu.github.io">
   <title>使用git hook自动部署项目 | 日常开发日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="由于使用的是gitblog，那怎么能不用git呢，于是就将blog也放到git上了，每次在本地写好文章，然后git push上去，再ssh到服务器上git pull，虽然不算十分复杂，但是作为一个程序员，能自(tou)动(lan)就肯定不会手动，而且git也正好有个hook的机制可以让你对仓库做了动作的时候给你callback，于是本文就诞生了。 git hookgit hook是用户在作出一系列">
-<meta name="keywords" content="git">
+  <meta name="description" content="使用git hook来更新项目">
+<meta name="keywords" content="linux,git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用git hook自动部署项目">
 <meta property="og:url" content="http://zhengyu.github.io/2015/11/14/git_hook_update/index.html">
 <meta property="og:site_name" content="日常开发日记">
-<meta property="og:description" content="由于使用的是gitblog，那怎么能不用git呢，于是就将blog也放到git上了，每次在本地写好文章，然后git push上去，再ssh到服务器上git pull，虽然不算十分复杂，但是作为一个程序员，能自(tou)动(lan)就肯定不会手动，而且git也正好有个hook的机制可以让你对仓库做了动作的时候给你callback，于是本文就诞生了。 git hookgit hook是用户在作出一系列">
-<meta property="og:image" content="http://zhengyu.github.io/2015/11/14/git_hook_update/img/git_index.png">
-<meta property="og:image" content="http://zhengyu.github.io/2015/11/14/git_hook_update/img/git_hook_index.png">
+<meta property="og:description" content="使用git hook来更新项目">
 <meta property="og:updated_time" content="2015-11-14T04:31:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用git hook自动部署项目">
-<meta name="twitter:description" content="由于使用的是gitblog，那怎么能不用git呢，于是就将blog也放到git上了，每次在本地写好文章，然后git push上去，再ssh到服务器上git pull，虽然不算十分复杂，但是作为一个程序员，能自(tou)动(lan)就肯定不会手动，而且git也正好有个hook的机制可以让你对仓库做了动作的时候给你callback，于是本文就诞生了。 git hookgit hook是用户在作出一系列">
-<meta name="twitter:image" content="http://zhengyu.github.io/2015/11/14/git_hook_update/img/git_index.png">
+<meta name="twitter:description" content="使用git hook来更新项目">
   
     <link rel="alternative" href="/atom.xml" title="日常开发日记" type="application/atom+xml">
   
@@ -177,15 +174,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>由于使用的是gitblog，那怎么能不用git呢，于是就将blog也放到git上了，每次在本地写好文章，然后<code>git push</code>上去，再ssh到服务器上<code>git pull</code>，虽然不算十分复杂，但是作为一个程序员，能自(tou)动(lan)就肯定不会手动，而且git也正好有个hook的机制可以让你对仓库做了动作的时候给你callback，于是本文就诞生了。</p>
-<h2 id="git-hook"><a href="#git-hook" class="headerlink" title="git hook"></a>git hook</h2><p>git hook是用户在作出一系列对git的操作后，git会自动调用的接口，简单来说就是，例如用户将代码push到服务器，然后服务器就会调用一个脚本。运用这个机制，我们就可以做一些自动化的操作，例如用户push后，服务器自动拉取最新的代码，或者发送邮件通知等等。我使用的是github，所以本文下本会重点介绍github的web hook。</p>
-<h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><p>首先请确保你的项目git pull时不需要输入用户名密码等，可以直接拉取。</p>
-<p>然后打开git项目首页，点击右下方的“Settings”</p>
-<p><img src="img/git_index.png" alt="git项目首页"></p>
-<p>然后点击左边的“Webhooks &amp; services”，就能进入webhook设置界面，然后点解右上方的“Add webhook”添加新的hook，这个hook为一个url地址，用户在对git操作后，github会调用这个url接口，实现相关功能。</p>
-<p><img src="img/git_hook_index.png" alt="git webhook"></p>
-<p>设置完成后，进入服务器编辑上面的接口：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//git_repo_dir 代指你的项目git init的目录，设置为绝对路径，例如：/var/www/test/</span></div><div class="line"><span class="comment">//1&gt;&amp;2 是为了如果git pull发生错误了，可以将错误信息显示出来</span></div><div class="line">exec(<span class="string">'cd git_repo_dir &amp;&amp; git pull origin master 1&gt;&amp;2'</span>);</div></pre></td></tr></table></figure>
+        <p>由于使用的是gitblog，那怎么能不用git呢，于是就将blog也放到git上了，每次在本地写好文章，然后<figure class="highlight plain"><figcaption><span>push```上去，再ssh到服务器上```git pull```，虽然不算十分复杂，但是作为一个程序员，能自(tou)动(lan)就肯定不会手动，而且git也正好有个hook的机制可以让你对仓库做了动作的时候给你callback，于是本文就诞生了。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">git hook</div><div class="line">---</div><div class="line"></div><div class="line">git hook是用户在作出一系列对git的操作后，git会自动调用的接口，简单来说就是，例如用户将代码push到服务器，然后服务器就会调用一个脚本。运用这个机制，我们就可以做一些自动化的操作，例如用户push后，服务器自动拉取最新的代码，或者发送邮件通知等等。我使用的是github，所以本文下本会重点介绍github的web hook。</div><div class="line"></div><div class="line">实现方法</div><div class="line">---</div><div class="line"></div><div class="line">首先请确保你的项目git pull时不需要输入用户名密码等，可以直接拉取。</div><div class="line"></div><div class="line">然后打开git项目首页，点击右下方的“Settings”</div><div class="line"></div><div class="line">![git项目首页](img/git_index.png)</div><div class="line"></div><div class="line">然后点击左边的“Webhooks &amp; services”，就能进入webhook设置界面，然后点解右上方的“Add webhook”添加新的hook，这个hook为一个url地址，用户在对git操作后，github会调用这个url接口，实现相关功能。</div><div class="line"></div><div class="line">![git webhook](img/git_hook_index.png)</div><div class="line"></div><div class="line">设置完成后，进入服务器编辑上面的接口：</div><div class="line"></div><div class="line">```php</div><div class="line">//git_repo_dir 代指你的项目git init的目录，设置为绝对路径，例如：/var/www/test/</div><div class="line">//1&gt;&amp;2 是为了如果git pull发生错误了，可以将错误信息显示出来</div><div class="line">exec(&apos;cd git_repo_dir &amp;&amp; git pull origin master 1&gt;&amp;2&apos;);</div></pre></td></tr></table></figure></p>
 <p>直接调用该接口试试，如果可以更新，那就不用看下面了。</p>
 <h2 id="提示文件夹不是一个git仓库，没有-git之类的"><a href="#提示文件夹不是一个git仓库，没有-git之类的" class="headerlink" title="提示文件夹不是一个git仓库，没有.git之类的"></a>提示文件夹不是一个git仓库，没有.git之类的</h2><p>该问题通常是因为git_repo_dir没有设置到正确的目录，找到你当时git init的那个目录就可以，该目录下肯定会有.git这个文件夹</p>
 <h2 id="提示Permission问题"><a href="#提示Permission问题" class="headerlink" title="提示Permission问题"></a>提示Permission问题</h2><p>该问题通常是因为apache的用户没有权限使用git pull，解决方法是(apache默认用户名为www-data，具体请已你的系统为准)：</p>
@@ -231,6 +220,10 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
         		</li>
       		
@@ -243,7 +236,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/linux,git/" class="article-tag-list-link color5">linux,git</a>
+        			<a href="/categories/linux/" class="article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/git/" class="article-tag-list-link color4">git</a>
         		</li>
       		
 		</ul>
@@ -312,11 +309,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2015/11/16/javascript_pattern_singleton/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/12/28/yii2_captcha/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          javascript设计模式：单例模式
+          yii2使用验证码组件
         
       </div>
     </a>
@@ -435,6 +432,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
@@ -443,15 +444,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript,单例模式,设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">服务器</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php,php函数</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ubuntu,apache</a>
+                <a href="javascript:void(0)" class="js-tag color2">apache</a>
               </li>
              
               <li class="article-tag-list-item">

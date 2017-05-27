@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://zhengyu.github.io">
   <title>yii2使用验证码组件 | 日常开发日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="yii2自带的例子里面有一个关于验证码的使用例子，但是本篇文章讨论的是用另外一种方式手动生成和验证验证码。 ####生成验证码 在要使用验证码的Controller里面实现actions方法： 1234567891011class TestController extends Controller&amp;#123;	public function actions()&amp;#123;		return [">
+  <meta name="description" content="yii2使用验证码组件">
 <meta name="keywords" content="yii2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="yii2使用验证码组件">
 <meta property="og:url" content="http://zhengyu.github.io/2015/12/28/yii2_captcha/index.html">
 <meta property="og:site_name" content="日常开发日记">
-<meta property="og:description" content="yii2自带的例子里面有一个关于验证码的使用例子，但是本篇文章讨论的是用另外一种方式手动生成和验证验证码。 ####生成验证码 在要使用验证码的Controller里面实现actions方法： 1234567891011class TestController extends Controller&amp;#123;	public function actions()&amp;#123;		return [">
+<meta property="og:description" content="yii2使用验证码组件">
 <meta property="og:updated_time" content="2015-12-28T05:25:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yii2使用验证码组件">
-<meta name="twitter:description" content="yii2自带的例子里面有一个关于验证码的使用例子，但是本篇文章讨论的是用另外一种方式手动生成和验证验证码。 ####生成验证码 在要使用验证码的Controller里面实现actions方法： 1234567891011class TestController extends Controller&amp;#123;	public function actions()&amp;#123;		return [">
+<meta name="twitter:description" content="yii2使用验证码组件">
   
     <link rel="alternative" href="/atom.xml" title="日常开发日记" type="application/atom+xml">
   
@@ -178,10 +178,7 @@
 <p>####生成验证码</p>
 <p>在要使用验证码的Controller里面实现actions方法：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span>&#123;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actions</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> [</div><div class="line">            <span class="string">'captchatest'</span> =&gt; [</div><div class="line">                <span class="string">'class'</span> =&gt; <span class="string">'yii\captcha\CaptchaAction'</span>,</div><div class="line">                <span class="string">'maxLength'</span> =&gt; <span class="number">4</span>, <span class="comment">//生成的验证码最大长度</span></div><div class="line">                <span class="string">'minLength'</span> =&gt; <span class="number">4</span>  <span class="comment">//生成的验证码最短长度</span></div><div class="line">            ]</div><div class="line">        ];</div><div class="line">	&#125;	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>以上代码通过实现actions方法创建了一个叫captchatest的action，上面的action我只填了两个参数，还有其他参数可以参考<code>yii\captcha\CaptchaAction</code>的publish属性</p>
-<p>####在页面中使用验证码</p>
-<p>在要使用验证码的view里面插入以下代码：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> Captcha::widget([<span class="string">'name'</span>=&gt;<span class="string">'captchaimg'</span>,<span class="string">'captchaAction'</span>=&gt;<span class="string">'captchatest'</span>,<span class="string">'imageOptions'</span>=&gt;[<span class="string">'id'</span>=&gt;<span class="string">'captchaimg'</span>, <span class="string">'title'</span>=&gt;<span class="string">'换一个'</span>, <span class="string">'alt'</span>=&gt;<span class="string">'换一个'</span>, <span class="string">'style'</span>=&gt;<span class="string">'cursor:pointer;margin-top:10px; height: 22px;'</span>],<span class="string">'template'</span>=&gt;<span class="string">'&#123;image&#125;'</span>]); <span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>以上代码通过实现actions方法创建了一个叫captchatest的action，上面的action我只填了两个参数，还有其他参数可以参考<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">####在页面中使用验证码</div><div class="line"></div><div class="line">在要使用验证码的view里面插入以下代码：</div><div class="line"></div><div class="line">```php</div><div class="line">&lt;?php echo Captcha::widget([&apos;name&apos;=&gt;&apos;captchaimg&apos;,&apos;captchaAction&apos;=&gt;&apos;captchatest&apos;,&apos;imageOptions&apos;=&gt;[&apos;id&apos;=&gt;&apos;captchaimg&apos;, &apos;title&apos;=&gt;&apos;换一个&apos;, &apos;alt&apos;=&gt;&apos;换一个&apos;, &apos;style&apos;=&gt;&apos;cursor:pointer;margin-top:10px; height: 22px;&apos;],&apos;template&apos;=&gt;&apos;&#123;image&#125;&apos;]); ?&gt;</div></pre></td></tr></table></figure></p>
 <p>以上代码主要需要正确填写captchaAction，填写你刚才创建的captchaAction，需要完整的namespace，然后会生成一个img</p>
 <p>####验证验证码</p>
 <p>在action中接收到表单传来的验证码后，使用：</p>
@@ -235,7 +232,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/php/" class="article-tag-list-link color4">php</a>
+        			<a href="/categories/yii2/" class="article-tag-list-link color5">yii2</a>
         		</li>
       		
 		</ul>
@@ -314,8 +311,8 @@
     </a>
   
   
-    <a href="/2015/11/20/php_spl_autoload_register/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">php函数：__autoload、spl_autoload_register</div>
+    <a href="/2015/11/14/git_hook_update/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用git hook自动部署项目</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -427,6 +424,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
@@ -435,15 +436,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript,单例模式,设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">服务器</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php,php函数</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ubuntu,apache</a>
+                <a href="javascript:void(0)" class="js-tag color2">apache</a>
               </li>
              
               <li class="article-tag-list-item">

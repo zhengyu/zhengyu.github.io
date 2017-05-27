@@ -267,10 +267,7 @@
 <p>####生成验证码</p>
 <p>在要使用验证码的Controller里面实现actions方法：</p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span>&#123;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actions</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">return</span> [</div><div class="line">            <span class="string">'captchatest'</span> =&gt; [</div><div class="line">                <span class="string">'class'</span> =&gt; <span class="string">'yii\captcha\CaptchaAction'</span>,</div><div class="line">                <span class="string">'maxLength'</span> =&gt; <span class="number">4</span>, <span class="comment">//生成的验证码最大长度</span></div><div class="line">                <span class="string">'minLength'</span> =&gt; <span class="number">4</span>  <span class="comment">//生成的验证码最短长度</span></div><div class="line">            ]</div><div class="line">        ];</div><div class="line">	&#125;	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>以上代码通过实现actions方法创建了一个叫captchatest的action，上面的action我只填了两个参数，还有其他参数可以参考<code>yii\captcha\CaptchaAction</code>的publish属性</p>
-<p>####在页面中使用验证码</p>
-<p>在要使用验证码的view里面插入以下代码：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span> <span class="keyword">echo</span> Captcha::widget([<span class="string">'name'</span>=&gt;<span class="string">'captchaimg'</span>,<span class="string">'captchaAction'</span>=&gt;<span class="string">'captchatest'</span>,<span class="string">'imageOptions'</span>=&gt;[<span class="string">'id'</span>=&gt;<span class="string">'captchaimg'</span>, <span class="string">'title'</span>=&gt;<span class="string">'换一个'</span>, <span class="string">'alt'</span>=&gt;<span class="string">'换一个'</span>, <span class="string">'style'</span>=&gt;<span class="string">'cursor:pointer;margin-top:10px; height: 22px;'</span>],<span class="string">'template'</span>=&gt;<span class="string">'&#123;image&#125;'</span>]); <span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>以上代码通过实现actions方法创建了一个叫captchatest的action，上面的action我只填了两个参数，还有其他参数可以参考<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">####在页面中使用验证码</div><div class="line"></div><div class="line">在要使用验证码的view里面插入以下代码：</div><div class="line"></div><div class="line">```php</div><div class="line">&lt;?php echo Captcha::widget([&apos;name&apos;=&gt;&apos;captchaimg&apos;,&apos;captchaAction&apos;=&gt;&apos;captchatest&apos;,&apos;imageOptions&apos;=&gt;[&apos;id&apos;=&gt;&apos;captchaimg&apos;, &apos;title&apos;=&gt;&apos;换一个&apos;, &apos;alt&apos;=&gt;&apos;换一个&apos;, &apos;style&apos;=&gt;&apos;cursor:pointer;margin-top:10px; height: 22px;&apos;],&apos;template&apos;=&gt;&apos;&#123;image&#125;&apos;]); ?&gt;</div></pre></td></tr></table></figure></p>
 <p>以上代码主要需要正确填写captchaAction，填写你刚才创建的captchaAction，需要完整的namespace，然后会生成一个img</p>
 <p>####验证验证码</p>
 <p>在action中接收到表单传来的验证码后，使用：</p>
@@ -303,7 +300,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/php/" class="article-tag-list-link color4">php</a>
+        			<a href="/categories/yii2/" class="article-tag-list-link color5">yii2</a>
         		</li>
       		
 		</ul>
@@ -313,171 +310,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2015/12/28/yii2_captcha/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-php_spl_autoload_register" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/20/php_spl_autoload_register/">php函数：__autoload、spl_autoload_register</a>
-    </h1>
-  
-
-        
-        <a href="/2015/11/20/php_spl_autoload_register/" class="archive-article-date">
-  	<time datetime="2015-11-20T08:15:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="函数作用"><a href="#函数作用" class="headerlink" title="函数作用"></a>函数作用</h2><p><code>spl_autoload_register</code>函数主要作用就是使用另外一个函数来实现实现<code>__autoload()</code>，说到这里就要解析一下<code>__autoload()</code>的用法，当php调用的class不存在时，<code>__autoload()</code>就会调用，然后你就可以在函数里面写处理语句，例如<code>require xxx.php</code>。</p>
-<h2 id="代码演示"><a href="#代码演示" class="headerlink" title="代码演示"></a>代码演示</h2><p>C1.php:</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">C1</span></span>&#123;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">test</span><span class="params">()</span></span>&#123;</div><div class="line">		<span class="keyword">echo</span> <span class="string">"C1 class\n"</span>;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>C2_1.php:</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">__autoload</span><span class="params">($class)</span></span>&#123;</div><div class="line">	$file = $class . <span class="string">'.php'</span>;</div><div class="line">	<span class="keyword">if</span> (file_exists($file))&#123;</div><div class="line">		<span class="keyword">require_once</span>($file);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$c = <span class="keyword">new</span> C1();</div></pre></td></tr></table></figure>
-<p>以上代码当运行C2_1.php时，由于找不到class C1，所以会调用<code>__autoload</code>方法，在方法里面<code>require_once</code>包含class C1的文件。</p>
-<p>C2_2.php:</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">loader</span><span class="params">($class)</span></span>&#123;</div><div class="line">	$file = $class . <span class="string">'.php'</span>;</div><div class="line">	<span class="keyword">if</span> (file_exists($file))&#123;</div><div class="line">		<span class="keyword">require_once</span>($file);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">spl_autoload_register(<span class="string">'loader'</span>);</div><div class="line"></div><div class="line">$c = <span class="keyword">new</span> C1();</div></pre></td></tr></table></figure>
-<p>当你不想使用<code>__autoload</code>这个方法时，就可以使用<code>spl_autoload_register</code>，将函数名作为参数传入，既可将该函数当成<code>__autoload()</code>。</p>
-<p>除了绑定函数，还可以绑定类静态方法或者类方法</p>
-<p>绑定类静态方法：</p>
-<p>C2_3.php:</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Loader</span></span>&#123;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;</div><div class="line">		spl_autoload_register(<span class="keyword">array</span>(<span class="string">'Loader'</span>, <span class="string">'autoloader'</span>));</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">autoloader</span><span class="params">()</span></span>&#123;</div><div class="line">		$file = $class . <span class="string">'.php'</span>;</div><div class="line">		<span class="keyword">if</span> (file_exists($file))&#123;</div><div class="line">			<span class="keyword">require_once</span>($file);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$l = <span class="keyword">new</span> Loader();</div><div class="line"></div><div class="line">$c = <span class="keyword">new</span> C1();</div></pre></td></tr></table></figure>
-<p>绑定类方法:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Loader</span></span>&#123;</div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span></span>&#123;</div><div class="line">		spl_autoload_register(<span class="keyword">array</span>(<span class="keyword">$this</span>, <span class="string">'autoloader'</span>));</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">autoloader</span><span class="params">()</span></span>&#123;</div><div class="line">		$file = $class . <span class="string">'.php'</span>;</div><div class="line">		<span class="keyword">if</span> (file_exists($file))&#123;</div><div class="line">			<span class="keyword">require_once</span>($file);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$l = <span class="keyword">new</span> Loader();</div><div class="line"></div><div class="line">$c = <span class="keyword">new</span> C1();</div></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">php,php函数</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/php/" class="article-tag-list-link color4">php</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/11/20/php_spl_autoload_register/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-javascript_pattern_singleton" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/16/javascript_pattern_singleton/">javascript设计模式：单例模式</a>
-    </h1>
-  
-
-        
-        <a href="/2015/11/16/javascript_pattern_singleton/" class="archive-article-date">
-  	<time datetime="2015-11-16T07:05:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>单例模式主要是为了确保一个类只有一个实例，具体实现方式是判断当前类是否已实例化，如果有则返回保存的对象，如果没有则创建一个新的实例。</p>
-<p>javascript中有多种方法实现，其中一种实现代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//此处通过闭包，将对象保存在Singleton变量中</span></div><div class="line"><span class="keyword">var</span> Singleton = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> instance;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">init</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> &#123;</div><div class="line">			<span class="attr">t</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">				<span class="built_in">console</span>.log(<span class="string">'test'</span>);</div><div class="line">			&#125;</div><div class="line">		&#125;;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">return</span> &#123;</div><div class="line">		<span class="attr">getInstance</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			<span class="keyword">if</span> (!instance) &#123;</div><div class="line">				<span class="keyword">return</span> init();</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			<span class="keyword">return</span> instance;</div><div class="line">		&#125;</div><div class="line">	&#125;;</div><div class="line">&#125;)();</div><div class="line"></div><div class="line"><span class="comment">//调用方法</span></div><div class="line">Singleton.getInstance().t();</div></pre></td></tr></table></figure>
-<p>单例模式应用场景：</p>
-<ol>
-<li><p>网站的计数器，确保计数同步</p>
-</li>
-<li><p>应用程序日志，确保日志的写入是由一个实例完成，保证日志的完整性</p>
-</li>
-<li><p>数据库连接类，减少用于数据库链接的资源</p>
-</li>
-</ol>
-<p>还有其他的应用，不过不难看出单例模式主要用于两点：操作共享资源、减少需要频繁操作的资源</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript,单例模式,设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/javascript,设计模式/" class="article-tag-list-link color1">javascript,设计模式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2015/11/16/javascript_pattern_singleton/">展开全文 >></a>
         </p>
       
 
@@ -512,15 +344,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>由于使用的是gitblog，那怎么能不用git呢，于是就将blog也放到git上了，每次在本地写好文章，然后<code>git push</code>上去，再ssh到服务器上<code>git pull</code>，虽然不算十分复杂，但是作为一个程序员，能自(tou)动(lan)就肯定不会手动，而且git也正好有个hook的机制可以让你对仓库做了动作的时候给你callback，于是本文就诞生了。</p>
-<h2 id="git-hook"><a href="#git-hook" class="headerlink" title="git hook"></a>git hook</h2><p>git hook是用户在作出一系列对git的操作后，git会自动调用的接口，简单来说就是，例如用户将代码push到服务器，然后服务器就会调用一个脚本。运用这个机制，我们就可以做一些自动化的操作，例如用户push后，服务器自动拉取最新的代码，或者发送邮件通知等等。我使用的是github，所以本文下本会重点介绍github的web hook。</p>
-<h2 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h2><p>首先请确保你的项目git pull时不需要输入用户名密码等，可以直接拉取。</p>
-<p>然后打开git项目首页，点击右下方的“Settings”</p>
-<p><img src="img/git_index.png" alt="git项目首页"></p>
-<p>然后点击左边的“Webhooks &amp; services”，就能进入webhook设置界面，然后点解右上方的“Add webhook”添加新的hook，这个hook为一个url地址，用户在对git操作后，github会调用这个url接口，实现相关功能。</p>
-<p><img src="img/git_hook_index.png" alt="git webhook"></p>
-<p>设置完成后，进入服务器编辑上面的接口：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//git_repo_dir 代指你的项目git init的目录，设置为绝对路径，例如：/var/www/test/</span></div><div class="line"><span class="comment">//1&gt;&amp;2 是为了如果git pull发生错误了，可以将错误信息显示出来</span></div><div class="line">exec(<span class="string">'cd git_repo_dir &amp;&amp; git pull origin master 1&gt;&amp;2'</span>);</div></pre></td></tr></table></figure>
+        <p>由于使用的是gitblog，那怎么能不用git呢，于是就将blog也放到git上了，每次在本地写好文章，然后<figure class="highlight plain"><figcaption><span>push```上去，再ssh到服务器上```git pull```，虽然不算十分复杂，但是作为一个程序员，能自(tou)动(lan)就肯定不会手动，而且git也正好有个hook的机制可以让你对仓库做了动作的时候给你callback，于是本文就诞生了。</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">git hook</div><div class="line">---</div><div class="line"></div><div class="line">git hook是用户在作出一系列对git的操作后，git会自动调用的接口，简单来说就是，例如用户将代码push到服务器，然后服务器就会调用一个脚本。运用这个机制，我们就可以做一些自动化的操作，例如用户push后，服务器自动拉取最新的代码，或者发送邮件通知等等。我使用的是github，所以本文下本会重点介绍github的web hook。</div><div class="line"></div><div class="line">实现方法</div><div class="line">---</div><div class="line"></div><div class="line">首先请确保你的项目git pull时不需要输入用户名密码等，可以直接拉取。</div><div class="line"></div><div class="line">然后打开git项目首页，点击右下方的“Settings”</div><div class="line"></div><div class="line">![git项目首页](img/git_index.png)</div><div class="line"></div><div class="line">然后点击左边的“Webhooks &amp; services”，就能进入webhook设置界面，然后点解右上方的“Add webhook”添加新的hook，这个hook为一个url地址，用户在对git操作后，github会调用这个url接口，实现相关功能。</div><div class="line"></div><div class="line">![git webhook](img/git_hook_index.png)</div><div class="line"></div><div class="line">设置完成后，进入服务器编辑上面的接口：</div><div class="line"></div><div class="line">```php</div><div class="line">//git_repo_dir 代指你的项目git init的目录，设置为绝对路径，例如：/var/www/test/</div><div class="line">//1&gt;&amp;2 是为了如果git pull发生错误了，可以将错误信息显示出来</div><div class="line">exec(&apos;cd git_repo_dir &amp;&amp; git pull origin master 1&gt;&amp;2&apos;);</div></pre></td></tr></table></figure></p>
 <p>直接调用该接口试试，如果可以更新，那就不用看下面了。</p>
 <h2 id="提示文件夹不是一个git仓库，没有-git之类的"><a href="#提示文件夹不是一个git仓库，没有-git之类的" class="headerlink" title="提示文件夹不是一个git仓库，没有.git之类的"></a>提示文件夹不是一个git仓库，没有.git之类的</h2><p>该问题通常是因为git_repo_dir没有设置到正确的目录，找到你当时git init的那个目录就可以，该目录下肯定会有.git这个文件夹</p>
 <h2 id="提示Permission问题"><a href="#提示Permission问题" class="headerlink" title="提示Permission问题"></a>提示Permission问题</h2><p>该问题通常是因为apache的用户没有权限使用git pull，解决方法是(apache默认用户名为www-data，具体请已你的系统为准)：</p>
@@ -545,6 +369,10 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
         		</li>
       		
@@ -557,7 +385,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/linux,git/" class="article-tag-list-link color5">linux,git</a>
+        			<a href="/categories/linux/" class="article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/git/" class="article-tag-list-link color4">git</a>
         		</li>
       		
 		</ul>
@@ -609,9 +441,8 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install language-pack-zh-hans language-pack-zh-hans-base</div></pre></td></tr></table></figure>
 <p>输入管理员密码后，就会自动下载中文的字库。</p>
 <ol>
-<li>配置相关环境变量:<br>编辑文件<code>/etc/environment</code>，添加以下设置：</li>
+<li>配置相关环境变量:<br>编辑文件<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">```shell</div><div class="line">LANG=&quot;zh_CN.UTF-8&quot;</div><div class="line">LANGUAGE=&quot;zh_CN:zh:en_US:en&quot;</div></pre></td></tr></table></figure></li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">LANG="zh_CN.UTF-8"</div><div class="line">LANGUAGE="zh_CN:zh:en_US:en"</div></pre></td></tr></table></figure>
 <p>添加完成后需要加载配置，使用命令<code>sudo dpkg-reconfigure locales</code>，待配置加载完成后既可。</p>
 
       
@@ -625,6 +456,10 @@
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ubuntu</a>
         		</li>
@@ -707,7 +542,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ubuntu,apache</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">服务器</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">apache</a>
         		</li>
       		
 		</ul>
@@ -719,7 +562,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/linux,服务器/" class="article-tag-list-link color5">linux,服务器</a>
+        			<a href="/categories/linux/" class="article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/服务器/" class="article-tag-list-link color4">服务器</a>
         		</li>
       		
 		</ul>
@@ -839,6 +686,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
@@ -847,15 +698,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript,单例模式,设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color4">服务器</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">php,php函数</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ubuntu,apache</a>
+                <a href="javascript:void(0)" class="js-tag color2">apache</a>
               </li>
              
               <li class="article-tag-list-item">
