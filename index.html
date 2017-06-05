@@ -154,6 +154,286 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ftp_upload" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/02/ftp_upload/">linux使用命令行操作ftp</a>
+    </h1>
+  
+
+        
+        <a href="/2017/06/02/ftp_upload/" class="archive-article-date">
+  	<time datetime="2017-06-02T09:44:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>由于公司软件比较特殊，我们发布版本通常会给很多服务器都一并发布了，而且用的还是ftp，如果每个服务器都先打开ftp软件，连接上，然后再上传，这样无疑不符合我们程序员懒的特质。</p>
+<p>于是我就花时间写了一个这样的脚本用来批量上传文件，我在这里会使用到lftp这个软件，这个软件比系统自带的ftp命令强大多了，而且ftp命令是不支持覆盖现有的目录的，所以还在苦苦寻找使用ftp覆盖目录的童鞋可以不用再继续了，下面就是简单介绍一下lftp的基本操作。</p>
+<p>lftp的操作基本和ftp命令大同小异，首先打开ftp连接：<code>lftp username:password@ip</code>，打开链接后，你需要使用<code>cd</code>命令进入到你需要上传的目录，然后通过<code>lcd</code>命令进入到本地的目录，这时你就可以通过<code>put</code>、<code>mput</code>、<code>mirror</code>等命令上传文件，或通过<code>get</code>、<code>mget</code>等命令下载文件，最后可以通过<code>exit</code>退出ftp。</p>
+<p>lftp主要命令</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>help</td>
+<td>产看命令列表</td>
+</tr>
+<tr>
+<td>ls</td>
+<td>显示远端文件列表</td>
+</tr>
+<tr>
+<td>cd</td>
+<td>切换远端目录</td>
+</tr>
+<tr>
+<td>get</td>
+<td>下载远程文件（单文件）</td>
+</tr>
+<tr>
+<td>mget</td>
+<td>下载远程文件（多文件）</td>
+</tr>
+<tr>
+<td>pget</td>
+<td>使用多个线程来下载远端文件</td>
+</tr>
+<tr>
+<td>mirror</td>
+<td>同步目录，可以用于下载和上传(- R)目录</td>
+</tr>
+<tr>
+<td>put</td>
+<td>上传文件（单文件）</td>
+</tr>
+<tr>
+<td>mput</td>
+<td>上传文件（多文件）</td>
+</tr>
+<tr>
+<td>mv</td>
+<td>移动文件（可以重命名目录、文件）</td>
+</tr>
+<tr>
+<td>rm</td>
+<td>删除远端文件</td>
+</tr>
+<tr>
+<td>mrm</td>
+<td>删除多个文件，可以使用通配符</td>
+</tr>
+<tr>
+<td>mkdir</td>
+<td>创建目录</td>
+</tr>
+<tr>
+<td>rmdir</td>
+<td>删除目录</td>
+</tr>
+<tr>
+<td>pwd</td>
+<td>显示远端的当前目录</td>
+</tr>
+<tr>
+<td>lcd</td>
+<td>切换本地目录</td>
+</tr>
+<tr>
+<td>lpwd</td>
+<td>显示本地目录</td>
+</tr>
+<tr>
+<td>exit</td>
+<td>退出ftp</td>
+</tr>
+</tbody>
+</table>
+<p>示例:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 连接数据库</span></div><div class="line">lftp username:password@127.0.0.1</div><div class="line"></div><div class="line"><span class="comment"># 列出当前ftp目录的文件</span></div><div class="line">lftp username@127.0.0.1:~&gt; ls</div><div class="line"></div><div class="line"><span class="comment"># 进入ftp上的某个目录</span></div><div class="line">lftp username@127.0.0.1:~&gt; <span class="built_in">cd</span> <span class="built_in">test</span>Dir</div><div class="line"></div><div class="line"><span class="comment"># 定位到本地目录</span></div><div class="line">lftp username@127.0.0.1:~&gt; lcd /<span class="built_in">local</span>/<span class="built_in">test</span>Dir</div><div class="line"></div><div class="line"><span class="comment"># 上传单个文件</span></div><div class="line">lftp username@127.0.0.1:~&gt; put <span class="built_in">test</span>File</div><div class="line"></div><div class="line"><span class="comment"># 上传多个文件，可以使用通配符</span></div><div class="line">lftp username@127.0.0.1:~&gt; mput *.md</div><div class="line"></div><div class="line"><span class="comment"># 将本地的目录同步到ftp上</span></div><div class="line">lftp username@127.0.0.1:~&gt; mirror -R . </div><div class="line"></div><div class="line"><span class="comment"># 获取远程的文件</span></div><div class="line">lftp username@127.0.0.1:~&gt; get <span class="built_in">test</span>File</div><div class="line"></div><div class="line"><span class="comment"># 获取远程的多个文件</span></div><div class="line">lftp username@127.0.0.1:~&gt; mget <span class="built_in">test</span>File</div><div class="line"></div><div class="line"><span class="comment"># 将远程的目录同步到本地</span></div><div class="line">lftp username@127.0.0.1:~&gt; mirror . </div><div class="line"></div><div class="line"><span class="comment"># 退出ftp</span></div><div class="line">lftp username@127.0.0.1:~&gt; <span class="built_in">exit</span></div></pre></td></tr></table></figure>
+<p>ftp上传脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">pathStr=`<span class="built_in">pwd</span>`</div><div class="line"></div><div class="line"><span class="comment"># 将脚本所在的目录的所有文件都上传到ftp上</span></div><div class="line"><span class="comment"># 参数为ftp连接信息 username:password@ip</span></div><div class="line">lftp <span class="variable">$1</span> &lt;&lt;EOF</div><div class="line">lcd <span class="variable">$pathStr</span></div><div class="line">mirror -R -c .</div><div class="line">rm ftp.sh</div><div class="line"><span class="built_in">exit</span>;</div><div class="line">EOF</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ftp</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">lftp</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/linux/" class="article-tag-list-link color1">linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/06/02/ftp_upload/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-build_centos_lamp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/27/build_centos_lamp/">从零开始搭建centos LAMP服务器</a>
+    </h1>
+  
+
+        
+        <a href="/2017/05/27/build_centos_lamp/" class="archive-article-date">
+  	<time datetime="2017-05-27T06:52:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>作为程序员，搭建环境应该作为一种基本功，本篇文章主要记录一下我自己是怎么在一个新安装的centos服务器上搭建LAMP环境</p>
+<p>一般安装环境，我都是按照<code>nginx -&gt; php -&gt; mysql</code> 这个顺序来安装的</p>
+<h1 id="nginx安装"><a href="#nginx安装" class="headerlink" title="nginx安装"></a>nginx安装</h1><h3 id="下载必要的类库"><a href="#下载必要的类库" class="headerlink" title="下载必要的类库"></a>下载必要的类库</h3><p>将PCRE、zlib、openssl这些类库下载到当前用户的home目录（~）</p>
+<ul>
+<li>PCRE</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.39.tar.bz2</div><div class="line"></div><div class="line"><span class="comment"># 解压</span></div><div class="line">bzip2 <span class="_">-d</span> pcre-8.39.tar.bz2</div><div class="line">tar xvf pcre-8.39.tar</div></pre></td></tr></table></figure>
+<ul>
+<li>zlib</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">wget http://zlib.net/zlib-1.2.8.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># 解压</span></div><div class="line">gzip <span class="_">-d</span> zlib-1.2.8.tar.gz</div><div class="line">tar xvf zlib-1.2.8.tar</div></pre></td></tr></table></figure>
+<ul>
+<li>openssl</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">wget https://www.openssl.org/<span class="built_in">source</span>/openssl-1.0.1t.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># 解压</span></div><div class="line">tar zxvf openssl-1.0.1t.tar.gz</div></pre></td></tr></table></figure>
+<p>这些文件下载接口后就可以开始正式安装nginx</p>
+<ul>
+<li>nginx</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">wget http://nginx.org/download/nginx-1.10.1.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># 解压</span></div><div class="line">tar zxvf nginx-1.10.1.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># 将目录安装到 /usr/local/nginx</span></div><div class="line">./configure --sbin-path=/usr/<span class="built_in">local</span>/nginx/nginx --conf-path=/usr/<span class="built_in">local</span>/nginx/nginx.conf --pid-path=/usr/run/nginx.pid --modules-path=/usr/<span class="built_in">local</span>/nginx/modules --error-log-path=/var/<span class="built_in">log</span>/nginx/error.log --http-log-path=/var/<span class="built_in">log</span>/nginx/access.log --with-http_ssl_module --with-pcre=/usr/<span class="built_in">local</span>/src/pcre-8.39 --with-zlib=/usr/<span class="built_in">local</span>/src/zlib-1.2.8 --with-openssl=/usr/<span class="built_in">local</span>/src/openssl-1.0.1t --user=nginx --group=nginx</div><div class="line">make</div><div class="line">make install</div></pre></td></tr></table></figure>
+<ul>
+<li>编写nginx启动脚本</li>
+</ul>
+<p>可以对照官方的例子：<code>https://www.nginx.com/resources/wiki/start/topics/examples/redhatnginxinit/#</code>，将编写好的启动脚本保存为 <code>/etc/init.d/nginx</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/sh</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># nginx - this script starts and stops the nginx daemon</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># chkconfig:   - 85 15</span></div><div class="line"><span class="comment"># description:  NGINX is an HTTP(S) server, HTTP(S) reverse \</span></div><div class="line"><span class="comment">#               proxy and IMAP/POP3 proxy server</span></div><div class="line"><span class="comment"># processname: nginx</span></div><div class="line"><span class="comment"># config:      /etc/nginx/nginx.conf</span></div><div class="line"><span class="comment"># config:      /etc/sysconfig/nginx</span></div><div class="line"><span class="comment"># pidfile:     /var/run/nginx.pid</span></div><div class="line"></div><div class="line"><span class="comment"># Source function library.</span></div><div class="line">. /etc/rc.d/init.d/<span class="built_in">functions</span></div><div class="line"></div><div class="line"><span class="comment"># Source networking configuration.</span></div><div class="line">. /etc/sysconfig/network</div><div class="line"></div><div class="line"><span class="comment"># Check that networking is up.</span></div><div class="line">[ <span class="string">"<span class="variable">$NETWORKING</span>"</span> = <span class="string">"no"</span> ] &amp;&amp; <span class="built_in">exit</span> 0</div><div class="line"></div><div class="line">nginx=<span class="string">"/usr/local/nginx/nginx"</span></div><div class="line">prog=$(basename <span class="variable">$nginx</span>)</div><div class="line"></div><div class="line">NGINX_CONF_FILE=<span class="string">"/usr/local/nginx/nginx.conf"</span></div><div class="line"></div><div class="line">[ <span class="_">-f</span> /etc/sysconfig/nginx ] &amp;&amp; . /etc/sysconfig/nginx</div><div class="line"></div><div class="line">lockfile=/var/lock/subsys/nginx</div><div class="line"></div><div class="line"><span class="function"><span class="title">make_dirs</span></span>() &#123;</div><div class="line">   <span class="comment"># make required directories</span></div><div class="line">   user=`<span class="variable">$nginx</span> -V 2&gt;&amp;1 | grep <span class="string">"configure arguments:"</span> | sed <span class="string">'s/[^*]*--user=\([^ ]*\).*/\1/g'</span> -`</div><div class="line">   <span class="keyword">if</span> [ -z <span class="string">"`grep <span class="variable">$user</span> /etc/passwd`"</span> ]; <span class="keyword">then</span></div><div class="line">       useradd -M <span class="_">-s</span> /bin/nologin <span class="variable">$user</span></div><div class="line">   <span class="keyword">fi</span></div><div class="line">   options=`<span class="variable">$nginx</span> -V 2&gt;&amp;1 | grep <span class="string">'configure arguments:'</span>`</div><div class="line">   <span class="keyword">for</span> opt <span class="keyword">in</span> <span class="variable">$options</span>; <span class="keyword">do</span></div><div class="line">       <span class="keyword">if</span> [ `<span class="built_in">echo</span> <span class="variable">$opt</span> | grep <span class="string">'.*-temp-path'</span>` ]; <span class="keyword">then</span></div><div class="line">           value=`<span class="built_in">echo</span> <span class="variable">$opt</span> | cut <span class="_">-d</span> <span class="string">"="</span> <span class="_">-f</span> 2`</div><div class="line">           <span class="keyword">if</span> [ ! <span class="_">-d</span> <span class="string">"<span class="variable">$value</span>"</span> ]; <span class="keyword">then</span></div><div class="line">               <span class="comment"># echo "creating" $value</span></div><div class="line">               mkdir -p <span class="variable">$value</span> &amp;&amp; chown -R <span class="variable">$user</span> <span class="variable">$value</span></div><div class="line">           <span class="keyword">fi</span></div><div class="line">       <span class="keyword">fi</span></div><div class="line">   <span class="keyword">done</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">start</span></span>() &#123;</div><div class="line">    [ -x <span class="variable">$nginx</span> ] || <span class="built_in">exit</span> 5</div><div class="line">    [ <span class="_">-f</span> <span class="variable">$NGINX_CONF_FILE</span> ] || <span class="built_in">exit</span> 6</div><div class="line">    make_dirs</div><div class="line">    <span class="built_in">echo</span> -n $<span class="string">"Starting <span class="variable">$prog</span>: "</span></div><div class="line">    daemon <span class="variable">$nginx</span> -c <span class="variable">$NGINX_CONF_FILE</span></div><div class="line">    retval=$?</div><div class="line">    <span class="built_in">echo</span></div><div class="line">    [ <span class="variable">$retval</span> <span class="_">-eq</span> 0 ] &amp;&amp; touch <span class="variable">$lockfile</span></div><div class="line">    <span class="built_in">return</span> <span class="variable">$retval</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">stop</span></span>() &#123;</div><div class="line">    <span class="built_in">echo</span> -n $<span class="string">"Stopping <span class="variable">$prog</span>: "</span></div><div class="line">    killproc <span class="variable">$prog</span> -QUIT</div><div class="line">    retval=$?</div><div class="line">    <span class="built_in">echo</span></div><div class="line">    [ <span class="variable">$retval</span> <span class="_">-eq</span> 0 ] &amp;&amp; rm <span class="_">-f</span> <span class="variable">$lockfile</span></div><div class="line">    <span class="built_in">return</span> <span class="variable">$retval</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">restart</span></span>() &#123;</div><div class="line">    configtest || <span class="built_in">return</span> $?</div><div class="line">    stop</div><div class="line">    sleep 1</div><div class="line">    start</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">reload</span></span>() &#123;</div><div class="line">    configtest || <span class="built_in">return</span> $?</div><div class="line">    <span class="built_in">echo</span> -n $<span class="string">"Reloading <span class="variable">$prog</span>: "</span></div><div class="line">    killproc <span class="variable">$nginx</span> -HUP</div><div class="line">    RETVAL=$?</div><div class="line">    <span class="built_in">echo</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">force_reload</span></span>() &#123;</div><div class="line">    restart</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">configtest</span></span>() &#123;</div><div class="line">  <span class="variable">$nginx</span> -t -c <span class="variable">$NGINX_CONF_FILE</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">rh_status</span></span>() &#123;</div><div class="line">    status <span class="variable">$prog</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="title">rh_status_q</span></span>() &#123;</div><div class="line">    rh_status &gt;/dev/null 2&gt;&amp;1</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span></div><div class="line">    start)</div><div class="line">        rh_status_q &amp;&amp; <span class="built_in">exit</span> 0</div><div class="line">        <span class="variable">$1</span></div><div class="line">        ;;</div><div class="line">    stop)</div><div class="line">        rh_status_q || <span class="built_in">exit</span> 0</div><div class="line">        <span class="variable">$1</span></div><div class="line">        ;;</div><div class="line">    restart|configtest)</div><div class="line">        <span class="variable">$1</span></div><div class="line">        ;;</div><div class="line">    reload)</div><div class="line">        rh_status_q || <span class="built_in">exit</span> 7</div><div class="line">        <span class="variable">$1</span></div><div class="line">        ;;</div><div class="line">    force-reload)</div><div class="line">        force_reload</div><div class="line">        ;;</div><div class="line">    status)</div><div class="line">        rh_status</div><div class="line">        ;;</div><div class="line">    condrestart|try-restart)</div><div class="line">        rh_status_q || <span class="built_in">exit</span> 0</div><div class="line">            ;;</div><div class="line">    *)</div><div class="line">        <span class="built_in">echo</span> $<span class="string">"Usage: <span class="variable">$0</span> &#123;start|stop|status|restart|condrestart|try-restart|reload|force-reload|configtest&#125;"</span></div><div class="line">        <span class="built_in">exit</span> 2</div><div class="line"><span class="keyword">esac</span></div></pre></td></tr></table></figure>
+<ul>
+<li>设置nginx自启动</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo chkconfig --add nginx</div><div class="line">sudo chkconfig nginx on</div></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">centos</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/linux/" class="article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/nginx/" class="article-tag-list-link color1">nginx</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/php/" class="article-tag-list-link color4">php</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/05/27/build_centos_lamp/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-git_update" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -199,11 +479,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">centos</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">centos</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
         		</li>
       		
 		</ul>
@@ -363,15 +643,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">单例模式</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">php</a>
         		</li>
       		
 		</ul>
@@ -863,7 +1143,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -871,11 +1159,27 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">lftp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">centos</a>
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -892,18 +1196,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">yii2</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">单例模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">php</a>
               </li>
             
             <div class="clearfix"></div>

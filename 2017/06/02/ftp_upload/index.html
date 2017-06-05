@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhengyu.github.io">
-  <title>Category: 设计模式 | 日常开发日记</title>
+  <title>linux使用命令行操作ftp | 日常开发日记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="记录日常工作和学习的过程">
-<meta property="og:type" content="website">
-<meta property="og:title" content="日常开发日记">
-<meta property="og:url" content="http://zhengyu.github.io/categories/javascript/设计模式/index.html">
+  <meta name="description" content="linux使用命令行操作ftp，linux ftp上传文件脚本">
+<meta name="keywords" content="linux,ftp,lftp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux使用命令行操作ftp">
+<meta property="og:url" content="http://zhengyu.github.io/2017/06/02/ftp_upload/index.html">
 <meta property="og:site_name" content="日常开发日记">
-<meta property="og:description" content="记录日常工作和学习的过程">
+<meta property="og:description" content="linux使用命令行操作ftp，linux ftp上传文件脚本">
+<meta property="og:updated_time" content="2017-06-02T09:44:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="日常开发日记">
-<meta name="twitter:description" content="记录日常工作和学习的过程">
+<meta name="twitter:title" content="linux使用命令行操作ftp">
+<meta name="twitter:description" content="linux使用命令行操作ftp，linux ftp上传文件脚本">
   
     <link rel="alternative" href="/atom.xml" title="日常开发日记" type="application/atom+xml">
   
@@ -152,83 +154,257 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-ftp_upload" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2015/11/16/javascript_pattern_singleton/" class="archive-article-date">
-  	<time datetime="2015-11-16T07:05:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-11-16</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/11/16/javascript_pattern_singleton/">javascript设计模式：单例模式</a>
+    <h1 class="article-title" itemprop="name">
+      linux使用命令行操作ftp
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/06/02/ftp_upload/" class="archive-article-date">
+  	<time datetime="2017-06-02T09:44:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>由于公司软件比较特殊，我们发布版本通常会给很多服务器都一并发布了，而且用的还是ftp，如果每个服务器都先打开ftp软件，连接上，然后再上传，这样无疑不符合我们程序员懒的特质。</p>
+<p>于是我就花时间写了一个这样的脚本用来批量上传文件，我在这里会使用到lftp这个软件，这个软件比系统自带的ftp命令强大多了，而且ftp命令是不支持覆盖现有的目录的，所以还在苦苦寻找使用ftp覆盖目录的童鞋可以不用再继续了，下面就是简单介绍一下lftp的基本操作。</p>
+<p>lftp的操作基本和ftp命令大同小异，首先打开ftp连接：<code>lftp username:password@ip</code>，打开链接后，你需要使用<code>cd</code>命令进入到你需要上传的目录，然后通过<code>lcd</code>命令进入到本地的目录，这时你就可以通过<code>put</code>、<code>mput</code>、<code>mirror</code>等命令上传文件，或通过<code>get</code>、<code>mget</code>等命令下载文件，最后可以通过<code>exit</code>退出ftp。</p>
+<p>lftp主要命令</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>help</td>
+<td>产看命令列表</td>
+</tr>
+<tr>
+<td>ls</td>
+<td>显示远端文件列表</td>
+</tr>
+<tr>
+<td>cd</td>
+<td>切换远端目录</td>
+</tr>
+<tr>
+<td>get</td>
+<td>下载远程文件（单文件）</td>
+</tr>
+<tr>
+<td>mget</td>
+<td>下载远程文件（多文件）</td>
+</tr>
+<tr>
+<td>pget</td>
+<td>使用多个线程来下载远端文件</td>
+</tr>
+<tr>
+<td>mirror</td>
+<td>同步目录，可以用于下载和上传(- R)目录</td>
+</tr>
+<tr>
+<td>put</td>
+<td>上传文件（单文件）</td>
+</tr>
+<tr>
+<td>mput</td>
+<td>上传文件（多文件）</td>
+</tr>
+<tr>
+<td>mv</td>
+<td>移动文件（可以重命名目录、文件）</td>
+</tr>
+<tr>
+<td>rm</td>
+<td>删除远端文件</td>
+</tr>
+<tr>
+<td>mrm</td>
+<td>删除多个文件，可以使用通配符</td>
+</tr>
+<tr>
+<td>mkdir</td>
+<td>创建目录</td>
+</tr>
+<tr>
+<td>rmdir</td>
+<td>删除目录</td>
+</tr>
+<tr>
+<td>pwd</td>
+<td>显示远端的当前目录</td>
+</tr>
+<tr>
+<td>lcd</td>
+<td>切换本地目录</td>
+</tr>
+<tr>
+<td>lpwd</td>
+<td>显示本地目录</td>
+</tr>
+<tr>
+<td>exit</td>
+<td>退出ftp</td>
+</tr>
+</tbody>
+</table>
+<p>示例:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 连接数据库</span></div><div class="line">lftp username:password@127.0.0.1</div><div class="line"></div><div class="line"><span class="comment"># 列出当前ftp目录的文件</span></div><div class="line">lftp username@127.0.0.1:~&gt; ls</div><div class="line"></div><div class="line"><span class="comment"># 进入ftp上的某个目录</span></div><div class="line">lftp username@127.0.0.1:~&gt; <span class="built_in">cd</span> <span class="built_in">test</span>Dir</div><div class="line"></div><div class="line"><span class="comment"># 定位到本地目录</span></div><div class="line">lftp username@127.0.0.1:~&gt; lcd /<span class="built_in">local</span>/<span class="built_in">test</span>Dir</div><div class="line"></div><div class="line"><span class="comment"># 上传单个文件</span></div><div class="line">lftp username@127.0.0.1:~&gt; put <span class="built_in">test</span>File</div><div class="line"></div><div class="line"><span class="comment"># 上传多个文件，可以使用通配符</span></div><div class="line">lftp username@127.0.0.1:~&gt; mput *.md</div><div class="line"></div><div class="line"><span class="comment"># 将本地的目录同步到ftp上</span></div><div class="line">lftp username@127.0.0.1:~&gt; mirror -R . </div><div class="line"></div><div class="line"><span class="comment"># 获取远程的文件</span></div><div class="line">lftp username@127.0.0.1:~&gt; get <span class="built_in">test</span>File</div><div class="line"></div><div class="line"><span class="comment"># 获取远程的多个文件</span></div><div class="line">lftp username@127.0.0.1:~&gt; mget <span class="built_in">test</span>File</div><div class="line"></div><div class="line"><span class="comment"># 将远程的目录同步到本地</span></div><div class="line">lftp username@127.0.0.1:~&gt; mirror . </div><div class="line"></div><div class="line"><span class="comment"># 退出ftp</span></div><div class="line">lftp username@127.0.0.1:~&gt; <span class="built_in">exit</span></div></pre></td></tr></table></figure>
+<p>ftp上传脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">pathStr=`<span class="built_in">pwd</span>`</div><div class="line"></div><div class="line"><span class="comment"># 将脚本所在的目录的所有文件都上传到ftp上</span></div><div class="line"><span class="comment"># 参数为ftp连接信息 username:password@ip</span></div><div class="line">lftp <span class="variable">$1</span> &lt;&lt;EOF</div><div class="line">lcd <span class="variable">$pathStr</span></div><div class="line">mirror -R -c .</div><div class="line">rm ftp.sh</div><div class="line"><span class="built_in">exit</span>;</div><div class="line">EOF</div></pre></td></tr></table></figure></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">单例模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ftp</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">lftp</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/javascript/" class="article-tag-list-link color1">javascript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/设计模式/" class="article-tag-list-link color5">设计模式</a>
+        			<a href="/categories/linux/" class="article-tag-list-link color1">linux</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://zhengyu.github.io/2017/06/02/ftp_upload/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/05/27/build_centos_lamp/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">从零开始搭建centos LAMP服务器</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
   
 
-    
+  
+
+  
 
 
           </div>
@@ -251,10 +427,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false,
 		root: "/",
 		innerArchive: true,
