@@ -263,6 +263,7 @@
 <p>示例:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 连接数据库</span></div><div class="line">lftp username:password@127.0.0.1</div><div class="line"></div><div class="line"><span class="comment"># 列出当前ftp目录的文件</span></div><div class="line">lftp username@127.0.0.1:~&gt; ls</div><div class="line"></div><div class="line"><span class="comment"># 进入ftp上的某个目录</span></div><div class="line">lftp username@127.0.0.1:~&gt; <span class="built_in">cd</span> <span class="built_in">test</span>Dir</div><div class="line"></div><div class="line"><span class="comment"># 定位到本地目录</span></div><div class="line">lftp username@127.0.0.1:~&gt; lcd /<span class="built_in">local</span>/<span class="built_in">test</span>Dir</div><div class="line"></div><div class="line"><span class="comment"># 上传单个文件</span></div><div class="line">lftp username@127.0.0.1:~&gt; put <span class="built_in">test</span>File</div><div class="line"></div><div class="line"><span class="comment"># 上传多个文件，可以使用通配符</span></div><div class="line">lftp username@127.0.0.1:~&gt; mput *.md</div><div class="line"></div><div class="line"><span class="comment"># 将本地的目录同步到ftp上</span></div><div class="line">lftp username@127.0.0.1:~&gt; mirror -R . </div><div class="line"></div><div class="line"><span class="comment"># 获取远程的文件</span></div><div class="line">lftp username@127.0.0.1:~&gt; get <span class="built_in">test</span>File</div><div class="line"></div><div class="line"><span class="comment"># 获取远程的多个文件</span></div><div class="line">lftp username@127.0.0.1:~&gt; mget <span class="built_in">test</span>File</div><div class="line"></div><div class="line"><span class="comment"># 将远程的目录同步到本地</span></div><div class="line">lftp username@127.0.0.1:~&gt; mirror . </div><div class="line"></div><div class="line"><span class="comment"># 退出ftp</span></div><div class="line">lftp username@127.0.0.1:~&gt; <span class="built_in">exit</span></div></pre></td></tr></table></figure>
 <p>ftp上传脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">pathStr=`<span class="built_in">pwd</span>`</div><div class="line"></div><div class="line"><span class="comment"># 将脚本所在的目录的所有文件都上传到ftp上</span></div><div class="line"><span class="comment"># 参数为ftp连接信息 username:password@ip</span></div><div class="line">lftp <span class="variable">$1</span> &lt;&lt;EOF</div><div class="line">lcd <span class="variable">$pathStr</span></div><div class="line">mirror -R -c .</div><div class="line">rm ftp.sh</div><div class="line"><span class="built_in">exit</span>;</div><div class="line">EOF</div></pre></td></tr></table></figure></p>
+<p><a href="http://lftp.yar.ru/" target="_blank" rel="external">lftp官网</a></p>
 
       
 
@@ -386,6 +387,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2017/06/19/php_parttern_singleton/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
   
     <a href="/2017/05/27/git_update/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">centos升级git</div>
@@ -496,10 +506,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
@@ -517,6 +523,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">centos</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
